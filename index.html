@@ -267,7 +267,9 @@ const DATA = {
   monthly: {
     months: ["May '26", "Jun '26", "Jul '26"],   // full calendar months (Aug in progress — pending)
     // ---- REAL: GA Sessions (Organic = Organic Search; Rest = all other channels) ----
-    traffic: { organic:[204150, 236300, 311595], direct:[158949, 277025, 179539], rest:[16870, 15997, 21739] },
+    // Direct cleaned of app-hosted-on-web pages (recurring-deposit-repeat*, is_app=true, /wealth-coach, /user-deletion).
+    // Raw full-month Direct was May 158,854 / Jun 271,778 / Jul 177,581 (recurring-deposit-repeat alone: 112,817 / 214,533 / 106,345).
+    traffic: { organic:[204150, 236300, 311595], direct:[41766, 52379, 65950], rest:[16870, 15997, 21739] },
     // ---- REAL: Mixpanel Web Cohort, full-month sums ----
     registrations:[4720, 4669, 5285],            // A
     appInstalls:  [1701, 2042, 2423],            // B
@@ -730,7 +732,7 @@ document.getElementById("themeBtn").addEventListener("click",()=>{
 
 document.getElementById("foot").innerHTML=
   `Live actuals: traffic from GA Sessions; Registrations, Installs, FD & Bonds metrics and home-page traffic from Mixpanel. `+
-  `MTD tab is fully live. MTD Direct is cleaned of app-hosted-on-web pages (recurring-deposit-repeat*, is_app=true, /wealth-coach, /user-deletion) across all months. The Monthly-tab (full-month) Direct is NOT yet cleaned — it needs full-month page-level exports. `+
+  `MTD tab is fully live. Direct (both tabs) is cleaned of app-hosted-on-web pages (recurring-deposit-repeat*, is_app=true, /wealth-coach, /user-deletion). `+
   `"n/a" = dedup distinct-user metrics with no monthly aggregate yet: monthly Total FD Users, Total Bonds Users, and Bonds Home Page Traffic. `+
   `Edit the <code>DATA</code> object at the top of the file to update. AUM in ₹ Cr. Font: Inter (swap for Circular when licensed).`;
 
