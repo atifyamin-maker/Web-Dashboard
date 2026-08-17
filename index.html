@@ -646,7 +646,6 @@ function renderMonthly(){
     subtitle:`Traffic = GA Sessions · Registrations/Installs/FD = Mixpanel Web Cohort · full months ${mo[0]}–${mo[mo.length-1]} · AUM in ₹ Cr · Aug pending (month in progress)`,
     realSet:new Set(["Overall Traffic","Organic","Direct","Rest","Registrations","App Installs","FD Home Page Traffic","FD New Users","FD NU AUM","FD Total Users AUM","Bonds Home Page Traffic","Bonds New Users","Bonds NU AUM","Bonds Total Users AUM"])
   });
-  buildSeoDeepdive(root);
 }
 
 /* ============================================================================
@@ -733,6 +732,7 @@ function renderMTD(){
     realSet:new Set(["Overall Traffic","Organic","Direct","Rest","Registrations","App Installs","FD Home Page Traffic","FD New Users","FD NU AUM","FD Total Users","FD Total Users AUM","Bonds Home Page Traffic","Bonds New Users","Bonds NU AUM","Bonds Total Users","Bonds Total Users AUM"])
   });
   buildDailyTrend(root);
+  buildSeoDeepdive(root);
 }
 
 /* ============================================================================
