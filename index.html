@@ -244,8 +244,7 @@
     </div>
     <div class="spacer"></div>
     <div class="tabs" role="tablist">
-      <button class="tab active" data-view="monthly" role="tab">Monthly (MoM)</button>
-      <button class="tab" data-view="mtd" role="tab">MTD compare</button>
+      <button class="tab active" data-view="mtd" role="tab">MTD compare</button>
     </div>
     <button class="icon-btn" id="themeBtn" title="Toggle light / dark">◐</button>
   </div>
@@ -253,8 +252,8 @@
 
 <main>
   <div class="view-note" id="viewNote"></div>
-  <div id="viewMonthly"></div>
-  <div id="viewMTD" class="hidden"></div>
+  <div id="viewMonthly" class="hidden"></div>
+  <div id="viewMTD"></div>
 </main>
 <footer id="foot"></footer>
 
@@ -776,7 +775,7 @@ document.getElementById("foot").innerHTML=
   `Edit the <code>DATA</code> object at the top of the file to update. AUM in ₹ Cr. Font: Inter (swap for Circular when licensed).`;
 
 renderAll();
-setNote("monthly");
+switchView("mtd");   // Monthly tab hidden for now — restore its <button> in .tabs to bring it back
 </script>
 </body>
 </html>
