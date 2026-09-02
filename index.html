@@ -244,8 +244,7 @@
     </div>
     <div class="spacer"></div>
     <div class="tabs" role="tablist">
-      <button class="tab" data-view="monthly" role="tab">Monthly (MoM)</button>
-      <button class="tab active" data-view="mtd" role="tab">MTD compare</button>
+      <button class="tab active" data-view="monthly" role="tab">Monthly (MoM)</button>
     </div>
     <button class="icon-btn" id="themeBtn" title="Toggle light / dark">◐</button>
   </div>
@@ -269,27 +268,27 @@
    ============================================================================ */
 const DATA = {
   monthly: {
-    months: ["May '26", "Jun '26", "Jul '26"],   // full calendar months (Aug in progress — pending)
+    months: ["May '26", "Jun '26", "Jul '26", "Aug '26"],   // full calendar months
     // ---- REAL: GA Sessions (Organic = Organic Search; Rest = all other channels) ----
     // Direct cleaned of app-hosted-on-web pages (recurring-deposit-repeat*, is_app=true, /wealth-coach, /user-deletion).
     // Raw full-month Direct was May 158,854 / Jun 271,778 / Jul 177,581 (recurring-deposit-repeat alone: 112,817 / 214,533 / 106,345).
-    traffic: { organic:[204150, 236300, 311595], direct:[41766, 52379, 65950], rest:[16870, 15997, 21739] },
+    traffic: { organic:[204150, 236300, 311595, 384881], direct:[41766, 52379, 65950, 82745], rest:[16870, 15997, 21739, 29229] },  // Aug = full-month (1–31), Direct cleaned
     // ---- REAL: Mixpanel Web Cohort, full-month sums ----
-    registrations:[4720, 4669, 5285],            // A
-    appInstalls:  [1701, 2042, 2423],            // B
-    homepage: { fd:[2849, 2869, 3146], bonds:[null, null, null] },   // FD Home (cohort G, daily-sum); Bonds Home = dedup users, no monthly aggregate → n/a
+    registrations:[4720, 4669, 5285, 8253],      // A
+    appInstalls:  [1701, 2042, 2423, 3622],      // B
+    homepage: { fd:[2849, 2869, 3146, null], bonds:[null, null, null, null] },   // FD Home (cohort G, daily-sum); Bonds Home = dedup users, no monthly aggregate → n/a
     fd: {
-      newUsers:     [502, 516, 594],             // C
-      nuAum:        [4.24, 3.91, 5.27],          // D (₹ Cr)
-      totalUsers:   [null, null, null],          // E — dedup metric; needs a monthly distinct-user export (daily can't be summed)
-      totalUsersAum:[10.62, 9.78, 13.28],        // F (₹ Cr)
+      newUsers:     [502, 516, 594, 731],        // C
+      nuAum:        [4.24, 3.91, 5.27, 7.23],    // D (₹ Cr)
+      totalUsers:   [null, 950, 1143, 1374],     // E — dedup monthly distinct-user export (user-provided). May pending.
+      totalUsersAum:[10.62, 9.78, 13.28, 16.54], // F (₹ Cr)
     },
     // ---- REAL: Bonds Metrics (full-month sums) ----
     bonds: {
-      newUsers:     [231, 266, 410],             // C. Bonds NU
-      nuAum:        [3.96, 5.32, 10.61],         // D. Bonds NU AUM (₹ Cr)
-      totalUsers:   [null, null, null],          // E. Total Bonds Users — dedup; needs a monthly distinct-user export
-      totalUsersAum:[20.37, 20.92, 31.20],       // F. Total Bond Users AUM (₹ Cr)
+      newUsers:     [231, 266, 410, 384],        // C. Bonds NU
+      nuAum:        [3.96, 5.32, 10.61, 7.71],   // D. Bonds NU AUM (₹ Cr)
+      totalUsers:   [null, 557, 777, 738],       // E. Total Bonds Users — dedup monthly export (user-provided). May pending.
+      totalUsersAum:[20.37, 20.92, 31.20, 25.27],// F. Total Bond Users AUM (₹ Cr)
     },
   },
   mtd: {
@@ -314,7 +313,7 @@ const DATA = {
     },
     // ---- REAL: GA Sessions, day 1–26 (channel-group). Organic = Organic Search; Rest = all other channels; Direct cleaned of app-hosted-on-web pages (recurring-deposit-repeat*, is_app=true, /wealth-coach, /user-deletion).
     // Raw 1–26 Direct: May 123,593 / Jun 239,564 / Jul 161,341 / Aug 91,982.
-    traffic:  { organic:[176227,198197,260556,325704], direct:[36039,44740,53630,69609], rest:[14893,14212,19075,26204] },
+    traffic:  { organic:[176227,198197,260556,325704], direct:[36039,44740,53630,69609], rest:[14893,14212,19075,26204] },  // all 1–26 (like-for-like); full-month Aug lives on the Monthly tab
   },
 };
 
@@ -640,8 +639,8 @@ function renderMonthly(){
   const mo=DATA.monthly.months;
   buildCmpTable(root, DATA.monthly, {
     title:"Month-on-Month — Full Calendar Months",
-    subtitle:`Traffic = GA Sessions · Registrations/Installs/FD = Mixpanel Web Cohort · full months ${mo[0]}–${mo[mo.length-1]} · AUM in ₹ Cr · Aug pending (month in progress)`,
-    realSet:new Set(["Overall Traffic","Organic","Direct","Rest","Registrations","App Installs","FD Home Page Traffic","FD New Users","FD NU AUM","FD Total Users AUM","Bonds Home Page Traffic","Bonds New Users","Bonds NU AUM","Bonds Total Users AUM"])
+    subtitle:`Traffic = GA Sessions (full months) · Registrations/Installs/FD = Mixpanel · ${mo[0]}–${mo[mo.length-1]} · AUM in ₹ Cr · Total FD/Bonds Users = monthly distinct-user export (May pending)`,
+    realSet:new Set(["Overall Traffic","Organic","Direct","Rest","Registrations","App Installs","FD Home Page Traffic","FD New Users","FD NU AUM","FD Total Users","FD Total Users AUM","Bonds Home Page Traffic","Bonds New Users","Bonds NU AUM","Bonds Total Users","Bonds Total Users AUM"])
   });
 }
 
@@ -769,11 +768,11 @@ document.getElementById("themeBtn").addEventListener("click",()=>{
 document.getElementById("foot").innerHTML=
   `Live actuals: traffic from GA Sessions; Registrations, Installs, FD & Bonds metrics and home-page traffic from Mixpanel. `+
   `MTD tab is fully live on the D1–26 window — traffic (Organic/Rest from GA channel-group; Direct cleaned of app-hosted-on-web pages: recurring-deposit-repeat*, is_app=true, /wealth-coach, /user-deletion), Mixpanel additive metrics, and the distinct-user aggregates (Total FD/Bonds Users) all on 1–26. `+
-  `"n/a" = dedup distinct-user metrics with no monthly aggregate yet: monthly Total FD Users, Total Bonds Users, and Bonds Home Page Traffic. `+
+  `Monthly Total FD Users and Total Bonds Users are true monthly distinct-user counts (not daily sums) — live for Jun–Aug; May still pending. "n/a"/"–" = no aggregate available yet. `+
   `Edit the <code>DATA</code> object at the top of the file to update. AUM in ₹ Cr. Font: Inter (swap for Circular when licensed).`;
 
 renderAll();
-switchView("mtd");   // default to MTD; Monthly (MoM) tab available in .tabs
+switchView("monthly");   // MTD tab hidden for now — restore its <button> in .tabs to bring it back
 </script>
 </body>
 </html>
