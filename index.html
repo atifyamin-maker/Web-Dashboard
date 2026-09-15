@@ -308,13 +308,13 @@ const DATA = {
     fd: {
       newUsers:     [263, 280, 374, 319],           // C. First Time FD (1-14)
       nuAum:        [1.93, 1.92, 3.32, 3.04],        // D. First Time FD AUM (Rs Cr, 1-14)
-      totalUsers:   [null, null, null, null],        // E. Total FD Users - DEDUP: needs a D1-14 distinct-user export
+      totalUsers:   [558, 661, 801, 818],            // E. Total FD Users - dedup distinct-user counts. Jul & Sep read off Mixpanel (661, 818); Jun & Aug back-computed from the vs-prev-month deltas (+18.46%, +2.12%), so +/-1.
       totalUsersAum:[4.61, 5.64, 7.53, 6.56],        // F. Total FD AUM (Rs Cr, 1-14)
     },
     bonds: {
       newUsers:     [123, 148, 200, 170],           // C. Bonds NU (1-14)
       nuAum:        [2.39, 3.08, 4.44, 3.56],        // D. Bonds NU AUM (Rs Cr, 1-14)
-      totalUsers:   [null, null, null, null],        // E. Total Bonds Users - DEDUP: needs a D1-14 distinct-user export
+      totalUsers:   [280, 361, 427, 404],            // E. Total Bonds Users - dedup distinct-user counts. Jul & Sep read off Mixpanel (361, 404); Jun & Aug back-computed from the vs-prev-month deltas (+28.93%, -5.39%), so +/-1.
       totalUsersAum:[9.14, 11.43, 13.96, 14.04],      // F. Total Bond Users AUM (Rs Cr, 1-14)
     },
   },
