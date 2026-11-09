@@ -245,7 +245,7 @@
     <div class="spacer"></div>
     <div class="tabs" role="tablist">
       <button class="tab active" data-view="monthly" role="tab">Monthly (MoM)</button>
-      <button class="tab" data-view="mtd" role="tab">MTD (D1–2)</button>
+      <button class="tab" data-view="mtd" role="tab" id="tabMtd">MTD</button>
     </div>
     <button class="icon-btn" id="themeBtn" title="Toggle light / dark">◐</button>
   </div>
@@ -729,7 +729,7 @@ function buildDailyTrend(root){
 function renderMTD(){
   const root=document.getElementById("viewMTD"); root.innerHTML="";
   buildCmpTable(root, DATA.mtd, {
-    title:"First 2 Days — Month-on-Month Comparison",
+    title:`First ${MTD_DAYS} Days — Month-on-Month Comparison`,
     subtitle:`Like-for-like comparison of Day 1–8 (${DATA.mtd.windowLabel}) across months · GA traffic with Direct cleaned at landing-page level · Mixpanel/Bonds metrics summed over days 1–8 · AUM in ₹ Cr`,
     realSet:new Set(["Overall Traffic","Organic","Direct","Rest","Registrations","App Installs","FD Home Page Traffic","FD New Users","FD NU AUM","FD Total Users","FD Total Users AUM","Bonds Home Page Traffic","Bonds New Users","Bonds NU AUM","Bonds Total Users","Bonds Total Users AUM"])
   });
@@ -758,6 +758,9 @@ function switchView(view){
   document.getElementById("viewMTD").classList.toggle("hidden",view!=="mtd");
   setNote(view);
 }
+const MTD_WIN=DATA.mtd.windowLabel;                       // e.g. "D1-8"
+const MTD_DAYS=(MTD_WIN.match(/\d+\s*$/)||["?"])[0];        // trailing day count, e.g. "8"
+document.getElementById("tabMtd").textContent=`MTD (${MTD_WIN.replace("-","–")})`;
 function renderAll(){renderMonthly();renderMTD();}
 
 document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>switchView(t.dataset.view)));
@@ -773,7 +776,7 @@ document.getElementById("themeBtn").addEventListener("click",()=>{
 
 document.getElementById("foot").innerHTML=
   `Live actuals: traffic from GA Sessions; Registrations, Installs, FD & Bonds metrics and home-page traffic from Mixpanel. `+
-  `MTD tab runs on a D1–2 window (Jun–Sep 26): GA traffic is fully live, with Direct cleaned at landing-page level (any page containing recurring-deposit-repeat, is_app=true, /app or ? is dropped). Mixpanel and Bonds rows are live D1–14 sums. Total FD Users and Total Bonds Users stay "n/a" throughout — deduplicated distinct-user counts cannot be summed from daily rows. The SEO category deep-dive is hidden for now (its code and data are still in the file). `+
+  `MTD tab runs on a ${MTD_WIN} window: GA traffic is fully live, with Direct cleaned at landing-page level (any page containing recurring-deposit-repeat, is_app=true, /app or ? is dropped). Mixpanel and Bonds rows are live ${MTD_WIN} sums. Total FD Users and Total Bonds Users stay "n/a" throughout — deduplicated distinct-user counts cannot be summed from daily rows. The SEO category deep-dive is hidden for now (its code and data are still in the file). `+
   `Monthly Total FD Users and Total Bonds Users are true monthly distinct-user counts (not daily sums) — live for Jun–Aug; May still pending. "n/a"/"–" = no aggregate available yet. `+
   `Edit the <code>DATA</code> object at the top of the file to update. AUM in ₹ Cr. Font: Inter (swap for Circular when licensed).`;
 
