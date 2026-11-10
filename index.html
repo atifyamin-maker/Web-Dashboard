@@ -303,17 +303,17 @@ const DATA = {
     // ---- REAL: Mixpanel Web Cohort + Bonds Funnel, day 1-9 sums (export 2026-05-01 -> 2026-11-10) ----
     registrations:[2158, 2729, 2282, 1499],          // A. Registrations (1-9)
     appInstalls:  [999, 1057, 856, 552],             // B. Installs from Web (1-9)
-    homepage: { fd:[1224, 1673, 1601, 1152], bonds:[7309, 7452, 7933, 7447] },  // FD Home row hidden; Bonds Home = Bonds Funnel col A "SB Web Home Page Traffic", summed over days 1-9 (daily uniques, so repeat visitors recount across days)
+    homepage: { fd:[1224, 1673, 1601, 1152], bonds:[6557, 6688, 7182, 6839] },  // FD Home row hidden; Bonds Home = "SB Web Home Page Traffic" DEDUP over the D1-9 window (Bonds Metrics board), not a sum of daily rows
     fd: {
       newUsers:     [254, 197, 217, 184],            // C. First Time FD (1-9)
       nuAum:        [2.13, 1.97, 1.78, 2.11],        // D. First Time FD AUM (Rs Cr, 1-9)
-      totalUsers:   [null, null, null, null],        // E. Total FD Users - DEDUP: needs a D1-9 distinct-user export
+      totalUsers:   [595, 590, 665, 710],            // E. Total FD Users - DEDUP distinct-user counts, read off the 'First Time Metrics - FD' board per D1-9 window
       totalUsersAum:[4.92, 4.22, 5.19, 6.7],         // F. Total FD AUM (Rs Cr, 1-9)
     },
     bonds: {
       newUsers:     [140, 116, 109, 101],            // C. Bonds NU (1-9)
       nuAum:        [3.29, 2.54, 2.68, 1.92],        // D. Bonds NU AUM (Rs Cr, 1-9)
-      totalUsers:   [null, null, null, null],        // E. Total Bonds Users - DEDUP: needs a D1-9 distinct-user export
+      totalUsers:   [298, 286, 293, 278],            // E. Total Bonds Users - DEDUP distinct-user counts, read off the 'Bonds Metrics' board per D1-9 window
       totalUsersAum:[9.5, 9.28, 8.96, 7.58],         // F. Total Bond Users AUM (Rs Cr, 1-9)
     },
   },
